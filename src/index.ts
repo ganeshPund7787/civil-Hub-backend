@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import "dotenv/config";
 import mongoose from "mongoose";
 import civilRouter from "./routers/civilUser.routes";
+import { errorMiddleware } from "./middleware/error.mddleware";
 
 mongoose
   .connect(process.env.MONGO_URI as string, { dbName: "civilHub" })
@@ -18,6 +19,7 @@ app.use(cors());
 
 app.use("/api/civil-user", civilRouter);
 
+app.use(errorMiddleware);
 app.listen(process.env.PORT, () => {
   console.log(`Server is working on ${process.env.PORT}`);
 });

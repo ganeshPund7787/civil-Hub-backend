@@ -80,17 +80,17 @@ const civilUserSchema = new mongoose.Schema<CivilUserType>({
     unique: true,
   },
 
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+
   password: {
     type: String,
     required: true,
   },
 
-  firstName: {
-    type: String,
-    required: true,
-  },
-
-  lastName: {
+  fullName: {
     type: String,
     required: true,
   },
@@ -115,55 +115,54 @@ const civilUserSchema = new mongoose.Schema<CivilUserType>({
     required: true,
   },
 
-  coutry: {
+  country: {
     type: String,
     required: true,
   },
 
   bio: {
     type: String,
-    required: true,
+    default: "",
   },
 
   degree: {
     type: String,
-    required: true,
+    default: "",
   },
 
   fieldOfStudy: {
     type: String,
-    required: true,
+    default: "",
   },
 
   university: {
     type: String,
-    required: true,
+    default: "",
   },
 
   duration: {
     type: String,
-    required: true,
+    default: "",
   },
 
   location: {
     type: String,
-    required: true,
+    default: "",
   },
 
   grade: {
     type: String,
-    required: true,
+    default: "",
   },
 
-  skills: [{ type: String, required: true }],
+  skills: [{ type: String, default: "" }],
 
   certifications: [{ type: String, default: "" }],
 
   languages: [{ type: String, required: true }],
 
   workExperience: [workExperienceSchema],
-    projects: [projectsSchema],
-  
+  projects: [projectsSchema],
 });
 
 export const CivilUser = mongoose.model("CivilUser", civilUserSchema);

@@ -20,14 +20,14 @@ export type ProjectsType = {
 
 export type CivilUserType = {
   email: string;
+  isAdmin: Boolean;
   password: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   dateOfBirth: Date;
   photoUrl: string;
   city: string;
   state: string;
-  coutry: string;
+  country: string;
   bio: string;
   degree: string;
   fieldOfStudy: string;

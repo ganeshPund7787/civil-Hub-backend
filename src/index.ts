@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import "dotenv/config";
 import mongoose from "mongoose";
 import civilRouter from "./routers/civilUser.routes";
 import { errorMiddleware } from "./middleware/error.mddleware";
+import "dotenv/config";
 
 mongoose
   .connect(process.env.MONGO_URI as string, { dbName: "civilHub" })
@@ -15,9 +15,14 @@ const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 
-app.use("/api/civil-user", civilRouter);
+app.use("/api/auth", civilRouter);
 
 app.use(errorMiddleware);
 app.listen(process.env.PORT, () => {

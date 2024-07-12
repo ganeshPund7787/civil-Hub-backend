@@ -23,6 +23,8 @@ export const Register = async (
       return next(errorHandler(400, "Invalid Birth Date"));
     }
 
+    req.body.dateOfBirth = date;
+
     req.body.password = bcryptjs.hashSync(req.body.password, 8);
 
     const newUser = new CivilUser(req.body);
@@ -76,9 +78,24 @@ export const Login = async (
       .json({
         success: true,
         message: "User logged in successfully",
-        user: rest, 
+        user: rest,
       });
   } catch (error: any) {
     next(error);
+  }
+};
+
+export const logOut = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.clearCookie("cookie").json({
+      success: true,
+      message: "User Logout Successfully",
+    });
+  } catch (error: any) {
+    console.log(`eRROR WHILE LOGOUT: `, error);
   }
 };

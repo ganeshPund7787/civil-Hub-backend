@@ -102,7 +102,8 @@ const civilUserSchema = new mongoose.Schema<CivilUserType>({
 
   photoUrl: {
     type: String,
-    default: "",
+    default:
+      "https://t3.ftcdn.net/jpg/05/79/55/26/360_F_579552668_sZD51Sjmi89GhGqyF27pZcrqyi7cEYBH.jpg",
   },
 
   city: {

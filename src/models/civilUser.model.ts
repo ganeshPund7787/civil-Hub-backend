@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import {
   CivilUserType,
+  EducationType,
   ProjectsType,
   workExperienceType,
 } from "../shared/types";
@@ -73,6 +74,38 @@ const projectsSchema = new mongoose.Schema<ProjectsType>({
   },
 });
 
+const educationDetails = new mongoose.Schema<EducationType>({
+  degree: {
+    type: String,
+    default: "",
+  },
+
+  fieldOfStudy: {
+    type: String,
+    default: "",
+  },
+
+  university: {
+    type: String,
+    default: "",
+  },
+
+  collegeName: {
+    type: String,
+    default: "",
+  },
+
+  duration: {
+    type: String,
+    default: "",
+  },
+
+  location: {
+    type: String,
+    default: "",
+  },
+});
+
 const civilUserSchema = new mongoose.Schema<CivilUserType>({
   email: {
     type: String,
@@ -125,43 +158,13 @@ const civilUserSchema = new mongoose.Schema<CivilUserType>({
     type: String,
     default: "",
   },
-
-  degree: {
-    type: String,
-    default: "",
-  },
-
-  fieldOfStudy: {
-    type: String,
-    default: "",
-  },
-
-  university: {
-    type: String,
-    default: "",
-  },
-
-  duration: {
-    type: String,
-    default: "",
-  },
-
-  location: {
-    type: String,
-    default: "",
-  },
-
-  grade: {
-    type: String,
-    default: "",
-  },
-
   skills: [{ type: String, default: "" }],
 
   certifications: [{ type: String, default: "" }],
 
   languages: [{ type: String, required: true }],
 
+  education: [educationDetails],
   workExperience: [workExperienceSchema],
   projects: [projectsSchema],
 });

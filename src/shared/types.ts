@@ -29,15 +29,19 @@ export type CivilUserType = {
   state: string;
   country: string;
   bio: string;
-  degree: string;
-  fieldOfStudy: string;
-  university: string;
-  duration: string;
-  location: string;
-  grade: string;
   workExperience: workExperienceType[];
+  education: EducationType[];
   skills: string[];
   certifications: string[];
   projects: ProjectsType[];
   languages: string[];
+};
+
+export type EducationType = {
+  degree: string;
+  fieldOfStudy: string;
+  university: string;
+  collegeName: string;
+  duration: string;
+  location: string;
 };

@@ -1,10 +1,8 @@
 import express from "express";
-import { Login, logOut, Register } from "../controllers/civilUser.controller";
+import { updateUser } from "../controllers/civilUser.controller";
 
-const router = express.Router();
+const route = express.Router();
 
-router.post("/register", Register);
-router.post("/login", Login);
-router.get("/logout", logOut);
+route.put("/update/:id", updateUser);
 
-export default router;
+export default route;

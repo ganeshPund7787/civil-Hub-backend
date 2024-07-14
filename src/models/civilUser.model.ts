@@ -31,8 +31,6 @@ const workExperienceSchema = new mongoose.Schema<workExperienceType>({
     type: String,
     required: true,
   },
-
-  achievements: [{ type: String, required: true }],
 });
 
 const projectsSchema = new mongoose.Schema<ProjectsType>({

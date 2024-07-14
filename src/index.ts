@@ -2,7 +2,8 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
-import civilRouter from "./routers/civilUser.routes";
+import civilRouter from "./routers/civilUserAuth.routes";
+import civilUserRouter from "./routers/civilUser.routes";
 import { errorMiddleware } from "./middleware/error.mddleware";
 import "dotenv/config";
 
@@ -23,6 +24,7 @@ app.use(
 );
 
 app.use("/api/auth", civilRouter);
+app.use("/api/user", civilUserRouter);
 
 app.use(errorMiddleware);
 app.listen(process.env.PORT, () => {

@@ -4,7 +4,6 @@ export type workExperienceType = {
   startDate: Date;
   endDate: Date;
   location: string;
-  achievements: string[];
 };
 
 export type ProjectsType = {

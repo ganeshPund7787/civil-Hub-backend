@@ -1,101 +1,30 @@
 import { Request, Response, NextFunction } from "express";
 import { CivilUser } from "../models/civilUser.model";
 import { errorHandler } from "../utils/error.Handler";
-import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
 
-export const Register = async (
+export const updateUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const isUserExist = await CivilUser.findOne({ email: req.body.email });
+    const { id } = req.params;
 
-    if (isUserExist) {
-      return next(errorHandler(400, "email already exist"));
+    let user = await CivilUser.findById(id);
+    if (!user) {
+      return next(errorHandler(400, "User does not exist"));
     }
 
-    const date = new Date(req.body.dateOfBirth).toISOString().split("T")[0];
-    const nowDate = new Date(Date.now()).toISOString().split("T")[0];
-
-    if (date > nowDate) {
-      return next(errorHandler(400, "Invalid Birth Date"));
-    }
-
-    req.body.dateOfBirth = date;
-
-    req.body.password = bcryptjs.hashSync(req.body.password, 8);
-
-    const newUser = new CivilUser(req.body);
-
-    await newUser.save();
-
-    res.status(202).json({
-      success: true,
-      message: "Account created",
-    });
-  } catch (error) {
-    console.log(`Error while register : `, error);
-    next(error);
-  }
-};
-
-export const Login = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const { email, password } = req.body;
-    const isUserExist = await CivilUser.findOne({ email });
-
-    if (!isUserExist) {
-      return next(errorHandler(400, "Email not found"));
-    }
-
-    const validPassword = bcryptjs.compareSync(password, isUserExist.password);
-
-    if (!validPassword) {
-      return next(errorHandler(402, "Incorrect email or Password"));
-    }
-
-    const cookie = jwt.sign(
-      { id: isUserExist._id },
-      process.env.JWT_SECREATE_KEY_BACKEND as string
+    const updatedUser = await CivilUser.findByIdAndUpdate(
+      id,
+      {
+        $set: req.body,
+      },
+      { new: true }
     );
-    const userObj = isUserExist.toObject();
-    const { password: _, ...rest } = userObj;
 
-    res
-      .cookie("cookie", cookie, {
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
-      })
-      .status(200)
-      .json({
-        success: true,
-        message: "User logged in successfully",
-        user: rest,
-      });
-  } catch (error: any) {
+    res.status(200).json(updatedUser);
+  } catch (error) {
     next(error);
-  }
-};
-
-export const logOut = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    res.clearCookie("cookie").json({
-      success: true,
-      message: "User Logout Successfully",
-    });
-  } catch (error: any) {
-    console.log(`eRROR WHILE LOGOUT: `, error);
   }
 };

@@ -15,15 +15,16 @@ export const updateUser = async (
       return next(errorHandler(400, "User does not exist"));
     }
 
-    const updatedUser = await CivilUser.findByIdAndUpdate(
+    await CivilUser.findByIdAndUpdate(
       id,
       {
         $set: req.body,
       },
       { new: true }
     );
+    const updatedUser = await CivilUser.findById(id);
 
-    res.status(200).json(updatedUser);
+    return res.status(200).json(updatedUser);
   } catch (error) {
     next(error);
   }

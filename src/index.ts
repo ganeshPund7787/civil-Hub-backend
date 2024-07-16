@@ -14,14 +14,15 @@ mongoose
 
 const app = express();
 
-app.use(cookieParser());
 app.use(express.json());
+
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
     credentials: true,
   })
 );
+app.use(cookieParser());
 
 app.use("/api/auth", civilRouter);
 app.use("/api/user", civilUserRouter);

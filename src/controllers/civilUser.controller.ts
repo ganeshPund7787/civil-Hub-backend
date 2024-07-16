@@ -29,3 +29,23 @@ export const updateUser = async (
     next(error);
   }
 };
+
+export const addLanguage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const { language } = req.body;
+    let user = await CivilUser.findById(id);
+    if (!user) {
+      return next(errorHandler(400, "User does not exist"));
+    }
+    user.languages.push(language);
+    await user.save();
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};

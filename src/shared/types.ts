@@ -1,4 +1,5 @@
 export type workExperienceType = {
+  id: string;
   jobTitle: string;
   company: string;
   startDate: Date;
@@ -7,6 +8,7 @@ export type workExperienceType = {
 };
 
 export type ProjectsType = {
+  id: string;
   title: string;
   description: string;
   startDate: Date;
@@ -37,6 +39,7 @@ export type CivilUserType = {
 };
 
 export type EducationType = {
+  id: string;
   degree: string;
   fieldOfStudy: string;
   university: string;
@@ -44,3 +47,5 @@ export type EducationType = {
   duration: string;
   location: string;
 };
+
+

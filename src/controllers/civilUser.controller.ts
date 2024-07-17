@@ -30,21 +30,64 @@ export const updateUser = async (
   }
 };
 
-export const addLanguage = async (
+export const addLanAndEducation = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const { id } = req.params;
-    const { language } = req.body;
     let user = await CivilUser.findById(id);
     if (!user) {
       return next(errorHandler(400, "User does not exist"));
     }
-    user.languages.push(language);
-    await user.save();
-    res.status(200).json(user);
+
+    if (req.body.language) {
+      const { language } = req.body;
+
+      if (user.languages.includes(language)) {
+        return next(errorHandler(404, "Already added"));
+      }
+      user.languages.push(language);
+
+      await user.save();
+
+      const finalUser = await CivilUser.findById(id).select("-password");
+      return res.status(200).json(finalUser);
+    } else {
+      user.education.push(req.body);
+      await user.save();
+
+      const finalUser = await CivilUser.findById(id).select("-password");
+
+      return res.status(200).json(finalUser);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addSkillsAndWork = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    let user = await CivilUser.findById(id);
+
+    if (!user) {
+      return next(errorHandler(400, "User does not exist"));
+    }
+
+    if (req.body.skill) {
+      user.skills.push(req.body.skill);
+      await user.save();
+      return res.status(200).json({
+        success: true,
+        message: "Skill Added!",
+      });
+    }
   } catch (error) {
     next(error);
   }

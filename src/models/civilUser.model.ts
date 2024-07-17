@@ -92,16 +92,6 @@ const educationDetails = new mongoose.Schema<EducationType>({
     type: String,
     default: "",
   },
-
-  duration: {
-    type: String,
-    default: "",
-  },
-
-  location: {
-    type: String,
-    default: "",
-  },
 });
 
 const civilUserSchema = new mongoose.Schema<CivilUserType>({

@@ -83,10 +83,15 @@ export const addSkillsAndWork = async (
     if (req.body.skill) {
       user.skills.push(req.body.skill);
       await user.save();
-      return res.status(200).json({
-        success: true,
-        message: "Skill Added!",
-      });
+
+      const finalUser = await CivilUser.findById(id).select("-password");
+      return res.status(200).json(finalUser);
+    } else {
+      user.workExperience.push(req.body);
+      await user.save();
+
+      const finalUser = await CivilUser.findById(id).select("-password");
+      return res.status(200).json(finalUser);
     }
   } catch (error) {
     next(error);

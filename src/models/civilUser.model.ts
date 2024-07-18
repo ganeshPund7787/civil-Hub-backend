@@ -17,14 +17,9 @@ const workExperienceSchema = new mongoose.Schema<workExperienceType>({
     required: true,
   },
 
-  startDate: {
-    type: Date,
-    required: true,
-  },
-
-  endDate: {
-    type: Date,
-    required: true,
+  experiance: {
+    type: String,
+    default: "1 Year",
   },
 
   location: {

@@ -87,6 +87,7 @@ export const addSkillsAndWork = async (
       const finalUser = await CivilUser.findById(id).select("-password");
       return res.status(200).json(finalUser);
     } else {
+      console.log(req.body);
       user.workExperience.push(req.body);
       await user.save();
 

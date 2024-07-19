@@ -98,3 +98,15 @@ export const addSkillsAndWork = async (
     next(error);
   }
 };
+
+export const AddUserCertificate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  console.log(req.body);
+  res.status(200).json({
+    message: "Hello",
+  });
+  // next(errorHandler(400, "dsfadsf"));
+};

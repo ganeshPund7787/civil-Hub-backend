@@ -49,8 +49,6 @@ const projectsSchema = new mongoose.Schema<ProjectsType>({
     required: true,
   },
 
-  technologies: [{ type: String, required: true }],
-
   role: {
     type: String,
     required: true,

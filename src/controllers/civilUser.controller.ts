@@ -105,8 +105,33 @@ export const AddUserCertificate = async (
   next: NextFunction
 ) => {
   console.log(req.body);
+  console.log(req._id);
   res.status(200).json({
     message: "Hello",
   });
   // next(errorHandler(400, "dsfadsf"));
+};
+
+export const AddProject = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req._id;
+    const user = await CivilUser.findById(userId);
+
+    if (!user) {
+      return next(errorHandler(400, "User is not found"));
+    }
+
+    user.projects.push(req.body);
+
+    await user.save();
+
+    const finalUser = await CivilUser.findById(userId).select("-password");
+    return res.status(200).json(finalUser);
+  } catch (error: any) {
+    next(error);
+  }
 };

@@ -139,6 +139,12 @@ const civilUserSchema = new mongoose.Schema<CivilUserType>({
     type: String,
     default: "",
   },
+
+  role: {
+    type: String,
+    default: "engineer",
+  },
+
   skills: [{ type: String, default: "" }],
 
   certifications: [{ type: String, default: "" }],

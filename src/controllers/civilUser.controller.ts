@@ -8,7 +8,7 @@ export const updateUser = async (
   next: NextFunction
 ) => {
   try {
-    const { id } = req.params;
+    const id = req._id;
 
     let user = await CivilUser.findById(id);
     if (!user) {
@@ -36,7 +36,7 @@ export const addLanAndEducation = async (
   next: NextFunction
 ) => {
   try {
-    const { id } = req.params;
+    const id = req._id;
     let user = await CivilUser.findById(id);
     if (!user) {
       return next(errorHandler(400, "User does not exist"));
@@ -73,7 +73,7 @@ export const addSkillsAndWork = async (
   next: NextFunction
 ) => {
   try {
-    const { id } = req.params;
+    const id = req._id;
     let user = await CivilUser.findById(id);
 
     if (!user) {
@@ -106,10 +106,10 @@ export const AddUserCertificate = async (
 ) => {
   console.log(req.body);
   console.log(req._id);
-  res.status(200).json({
+  res.status(400).json({
+    success: false,
     message: "Hello",
   });
-  // next(errorHandler(400, "dsfadsf"));
 };
 
 export const AddProject = async (

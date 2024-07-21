@@ -20,6 +20,7 @@ export type ProjectsType = {
 
 export type CivilUserType = {
   email: string;
+  role: string;
   isAdmin: Boolean;
   password: string;
   fullName: string;

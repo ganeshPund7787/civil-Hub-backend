@@ -2,11 +2,15 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
-import civilRouter from "./routers/civilUserAuth.routes";
-import civilUserRouter from "./routers/civilUser.routes";
 import { errorMiddleware } from "./middleware/error.mddleware";
 import { isAuthenticated } from "../src/middleware/Auth.middleware";
 import "dotenv/config";
+
+import civilRouter from "./routers/civilUserAuth.routes";
+import civilUserRouter from "./routers/civilUser.routes";
+
+import ClientRouter from "./routers/Client.routes";
+
 mongoose
   .connect(process.env.MONGO_URI as string, { dbName: "civilHub" })
   .then(() => console.log(`Database connected successfully`))
@@ -26,6 +30,8 @@ app.use(
 
 app.use("/api/auth", civilRouter);
 app.use("/api/user", isAuthenticated, civilUserRouter);
+
+app.use("/api/client", ClientRouter);
 
 app.use(errorMiddleware);
 app.listen(process.env.PORT, () => {

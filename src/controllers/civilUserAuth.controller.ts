@@ -3,6 +3,7 @@ import { CivilUser } from "../models/civilUser.model";
 import { errorHandler } from "../utils/error.Handler";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { Client } from "../models/Client.model";
 
 export const Register = async (
   req: Request,
@@ -48,10 +49,10 @@ export const Login = async (
 ) => {
   try {
     const { email, password } = req.body;
-    const isUserExist = await CivilUser.findOne({ email });
+    let isUserExist = await CivilUser.findOne({ email });
 
     if (!isUserExist) {
-      return next(errorHandler(400, "Email not found"));
+      return next();
     }
 
     const validPassword = bcryptjs.compareSync(password, isUserExist.password);
@@ -64,6 +65,7 @@ export const Login = async (
       { id: isUserExist._id },
       process.env.JWT_SECREATE_KEY_BACKEND as string
     );
+
     const userObj = isUserExist.toObject();
     const { password: _, ...rest } = userObj;
 
@@ -82,6 +84,52 @@ export const Login = async (
       });
   } catch (error: any) {
     next(error);
+  }
+};
+
+export const LoginClient = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { email, password } = req.body;
+    let isUserExist = await Client.findOne({ email });
+    console.log(isUserExist);
+    if (!isUserExist) {
+      return next(errorHandler(400, "Email not found"));
+    }
+
+    const validPassword = bcryptjs.compareSync(password, isUserExist.password);
+
+    if (!validPassword) {
+      return next(errorHandler(402, "Incorrect email or Password"));
+    }
+
+    const cookie = jwt.sign(
+      { id: isUserExist._id },
+      process.env.JWT_SECREATE_KEY_BACKEND as string
+    );
+
+    const userObj = isUserExist.toObject();
+    const { password: _, ...rest } = userObj;
+
+    res
+      .cookie("cookie", cookie, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+      })
+      .status(200)
+      .json({
+        success: true,
+        message: "User logged in successfully",
+        user: rest,
+      });
+  } catch (error) {
+    next(error);
+    console.log(`Error while client login`, error);
   }
 };
 

@@ -12,10 +12,11 @@ const AddressSchema = new mongoose.Schema({
 const ClientSchema = new mongoose.Schema<ClientType>(
   {
     fullName: { type: String, required: true },
-    role: { type: String, default: "client" },
     email: { type: String, required: true, unique: true },
-    address: { type: AddressSchema, required: true },
+    password: { type: String, required: true },
     phoneNumber: { type: String, required: true },
+    address: { type: AddressSchema, required: true },
+    role: { type: String, default: "client" },
     company: { type: String, required: false },
     bio: { type: String, default: "" },
     website: { type: String, default: "" },

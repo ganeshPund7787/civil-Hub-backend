@@ -17,10 +17,14 @@ const ClientSchema = new mongoose.Schema<ClientType>(
     phoneNumber: { type: String, required: true },
     address: { type: AddressSchema, required: true },
     role: { type: String, default: "client" },
-    company: { type: String, required: false },
+    company: { type: String, default: "" },
     bio: { type: String, default: "" },
     website: { type: String, default: "" },
-    profilePictureUrl: { type: String, default: "" },
+    profilePictureUrl: {
+      type: String,
+      default:
+        "https://t3.ftcdn.net/jpg/00/64/67/52/360_F_64675209_7ve2XQANuzuHjMZXP3aIYIpsDKEbF5dD.jpg",
+    },
     isAdmin: { type: String, default: false },
   },
   { timestamps: true }

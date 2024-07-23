@@ -11,13 +11,9 @@ export const CreateClient = async (
 ) => {
   try {
     const isUserxist = await Client.findOne({ email: req.body.email });
-    const isFrelancer = await CivilUser.findOne({ email: req.body.email });
-
-    if (isUserxist) {
-      return next(errorHandler(400, "Email already exist"));
-    }
-
-    if (isFrelancer) {
+    const isCivilUser = await CivilUser.findOne({ email: req.body.email });
+    console.log("Body: ", req.body);
+    if (isUserxist || isCivilUser) {
       return next(errorHandler(400, "Email already exist"));
     }
 
@@ -35,6 +31,29 @@ export const CreateClient = async (
       message: "Client register success",
     });
   } catch (error) {
+    next(error);
+  }
+};
+
+export const UpdateClient = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const ClientId = req._id;
+
+    await Client.findByIdAndUpdate(
+      ClientId,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    const updatedClient = await Client.findById(ClientId);
+    res.status(201).json(updatedClient);
+  } catch (error) {
+    console.log(`Error while backend : `, error);
     next(error);
   }
 };

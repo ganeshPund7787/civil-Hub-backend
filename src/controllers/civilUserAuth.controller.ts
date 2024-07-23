@@ -12,8 +12,9 @@ export const Register = async (
 ) => {
   try {
     const isUserExist = await CivilUser.findOne({ email: req.body.email });
+    const isClientUser = await Client.findOne({ email: req.body.email });
 
-    if (isUserExist) {
+    if (isUserExist || isClientUser) {
       return next(errorHandler(400, "email already exist"));
     }
 
@@ -77,11 +78,7 @@ export const Login = async (
         secure: process.env.NODE_ENV === "production",
       })
       .status(200)
-      .json({
-        success: true,
-        message: "User logged in successfully",
-        user: rest,
-      });
+      .json(rest);
   } catch (error: any) {
     next(error);
   }
@@ -95,7 +92,7 @@ export const LoginClient = async (
   try {
     const { email, password } = req.body;
     let isUserExist = await Client.findOne({ email });
-    console.log(isUserExist);
+
     if (!isUserExist) {
       return next(errorHandler(400, "Email not found"));
     }
@@ -122,11 +119,7 @@ export const LoginClient = async (
         secure: process.env.NODE_ENV === "production",
       })
       .status(200)
-      .json({
-        success: true,
-        message: "User logged in successfully",
-        user: rest,
-      });
+      .json(rest);
   } catch (error) {
     next(error);
     console.log(`Error while client login`, error);

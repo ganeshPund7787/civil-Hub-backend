@@ -53,7 +53,8 @@ export const Login = async (
     let isUserExist = await CivilUser.findOne({ email });
 
     if (!isUserExist) {
-      return next();
+      next();
+      return;
     }
 
     const validPassword = bcryptjs.compareSync(password, isUserExist.password);

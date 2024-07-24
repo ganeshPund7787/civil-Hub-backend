@@ -99,7 +99,7 @@ export const addSkillsAndWork = async (
   }
 };
 
-export const AddUserCertificate = async (
+export const UserAchivements = async (
   req: Request,
   res: Response,
   next: NextFunction

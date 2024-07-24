@@ -47,3 +47,15 @@ export type EducationType = {
   duration: string;
   location: string;
 };
+
+export type PostType = {
+  _id: any;
+  image: string;
+  userId: any;
+  description: string;
+  likes: string[];
+  comments: {
+    userId: string;
+    comment: string;
+  }[];
+};

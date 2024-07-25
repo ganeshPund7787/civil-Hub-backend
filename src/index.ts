@@ -11,6 +11,8 @@ import civilUserRouter from "./routers/civilUser.routes";
 
 import ClientRouter from "./routers/Client.routes";
 
+import PostRouter from "./routers/post.routes";
+
 mongoose
   .connect(process.env.MONGO_URI as string, { dbName: "civilHub" })
   .then(() => console.log(`Database connected successfully`))
@@ -32,6 +34,8 @@ app.use("/api/auth", civilRouter);
 app.use("/api/user", isAuthenticated, civilUserRouter);
 
 app.use("/api/client", ClientRouter);
+
+app.use("/api/post", PostRouter);
 
 app.use(errorMiddleware);
 app.listen(process.env.PORT, () => {

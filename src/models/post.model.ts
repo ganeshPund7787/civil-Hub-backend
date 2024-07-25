@@ -13,6 +13,10 @@ const PostSchema = new mongoose.Schema<PostType>({
     type: String,
     default: "",
   },
+  image: {
+    type: String,
+    required: false,
+  },
   comments: [
     {
       userId: {
@@ -28,10 +32,6 @@ const PostSchema = new mongoose.Schema<PostType>({
       },
     },
   ],
-  image: {
-    type: String,
-    required: false,
-  },
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId as SchemaDefinitionProperty<

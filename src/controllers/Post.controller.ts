@@ -26,8 +26,7 @@ export const createPost = async (
     }
 
     await newPost.save();
-
-    res.json(newPost);
+    res.status(200).json("ok");
   } catch (error) {
     next(error);
   }

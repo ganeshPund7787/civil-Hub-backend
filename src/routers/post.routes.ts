@@ -1,5 +1,5 @@
 import express from "express";
-import { isAuthenticated } from "../middleware/Auth.middleware";
+import { isAuthenticated } from "../../src/middleware/Auth.middleware";
 import { createPost, GetPost } from "../controllers/Post.controller";
 
 const route = express.Router();

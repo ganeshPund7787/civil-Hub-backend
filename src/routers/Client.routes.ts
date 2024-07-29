@@ -1,6 +1,6 @@
 import express from "express";
 import { CreateClient, UpdateClient } from "../controllers/Client.controller";
-import { isAuthenticated } from "../../src/middleware/Auth.middleware";
+import { isAuthenticated } from "../middleware/Auth.middleware";
 
 const route = express.Router();
 

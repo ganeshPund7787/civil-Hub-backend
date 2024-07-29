@@ -3,7 +3,6 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import { errorMiddleware } from "./middleware/error.mddleware";
-import { isAuthenticated } from "../src/middleware/Auth.middleware";
 import "dotenv/config";
 
 import civilRouter from "./routers/civilUserAuth.routes";
@@ -31,7 +30,7 @@ app.use(
 );
 
 app.use("/api/auth", civilRouter);
-app.use("/api/user", isAuthenticated, civilUserRouter);
+app.use("/api/user", civilUserRouter);
 
 app.use("/api/client", ClientRouter);
 

@@ -69,3 +69,19 @@ export const GetPost = async (
     next(error.message);
   }
 };
+
+export const deletePost = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { postId } = req.params;
+    await Post.findByIdAndDelete(postId);
+    res.status(200).json({
+      message: "Post Deleted",
+    });
+  } catch (error: any) {
+    next(error.message);
+  }
+};

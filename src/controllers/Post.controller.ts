@@ -38,9 +38,9 @@ export const updatePost = async (
   next: NextFunction
 ) => {
   try {
-    const userId = req._id;
     const { postId } = req.params;
-
+    console.log(postId);
+    console.log(req.body);
     await Post.findByIdAndUpdate(
       postId,
       {
@@ -48,8 +48,9 @@ export const updatePost = async (
       },
       { new: true }
     );
-
-    return res.status(201);
+    res.status(201).json({
+      message: "Post Updated",
+    });
   } catch (error) {
     next(error);
   }

@@ -32,6 +32,29 @@ export const createPost = async (
   }
 };
 
+export const updatePost = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req._id;
+    const { postId } = req.params;
+
+    await Post.findByIdAndUpdate(
+      postId,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+
+    return res.status(201);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const GetPost = async (
   req: Request,
   res: Response,

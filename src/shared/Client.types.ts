@@ -18,3 +18,16 @@ export interface ClientType {
   website?: string;
   bio?: string;
 }
+
+export interface JobPostType {
+  _id: string;
+  heading: string;
+  experianceLevel: string;
+  description: string;
+  skills: string[];
+  clientId: any;
+  location: string;
+  HoursePerWeak: number;
+  projectDuration: string;
+  lastUpdated: Date;
+}

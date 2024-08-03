@@ -23,7 +23,7 @@ const jobPostSchema = new mongoose.Schema<JobPostType>({
   },
   HoursePerWeak: {
     type: Number,
-    required: true,
+    default: 0,
   },
   location: {
     type: String,

@@ -11,6 +11,7 @@ import civilUserRouter from "./routers/civilUser.routes";
 import ClientRouter from "./routers/Client.routes";
 
 import PostRouter from "./routers/post.routes";
+import JobPostRouter from "./routers/jobPost.routes";
 
 mongoose
   .connect(process.env.MONGO_URI as string, { dbName: "civilHub" })
@@ -35,6 +36,7 @@ app.use("/api/user", civilUserRouter);
 app.use("/api/client", ClientRouter);
 
 app.use("/api/post", PostRouter);
+app.use("/api/job-post", JobPostRouter);
 
 app.use(errorMiddleware);
 app.listen(process.env.PORT, () => {

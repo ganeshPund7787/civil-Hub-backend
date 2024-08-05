@@ -22,6 +22,7 @@ export interface ClientType {
 export interface JobPostType {
   _id: string;
   heading: string;
+  salary: string;
   experianceLevel: string;
   description: string;
   skills: string[];

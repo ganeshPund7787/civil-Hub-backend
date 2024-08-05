@@ -22,6 +22,10 @@ const jobPostSchema = new mongoose.Schema<JobPostType>(
       type: String,
       required: true,
     },
+    salary: {
+      type: String,
+      required: true,
+    },
     HoursePerWeak: {
       type: Number,
       default: 0,

@@ -23,3 +23,16 @@ export const createJobPost = async (
     next(error);
   }
 };
+
+export const getClientPost = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const jobPosts = await JobPost.find({ clientId: req._id });
+    res.status(200).json(jobPosts);
+  } catch (error) {
+    next(error);
+  }
+};

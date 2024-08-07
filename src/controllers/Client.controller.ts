@@ -57,3 +57,22 @@ export const UpdateClient = async (
     next(error);
   }
 };
+
+export const getClient = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const client = await Client.findById(req.params.id).select("-password");
+    if (!client) return res.json("");
+    res.status(200).json({
+      fullName: client.fullName,
+      email: client.email,
+      address: client.address,
+    });
+  } catch (error) {
+    next(error);
+    console.log(`Error while get User Listing : ${error}`);
+  }
+};

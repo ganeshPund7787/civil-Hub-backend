@@ -76,3 +76,20 @@ export const getClient = async (
     console.log(`Error while get User Listing : ${error}`);
   }
 };
+
+export const getAllClient = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const loggedInUserId = req._id;
+    const filterUsers = await Client.find({
+      _id: { $ne: loggedInUserId },
+    }).select("-password");
+    res.status(200).json(filterUsers);
+  } catch (error: any) {
+    console.log(`Error while get Side Bar usrs : ${error.message}`);
+    next(error);
+  }
+};

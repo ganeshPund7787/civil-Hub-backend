@@ -141,3 +141,22 @@ export const logOut = async (
     console.log(`eRROR WHILE LOGOUT: `, error);
   }
 };
+
+export const getAllCivilUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const loggedInUserId = req._id;
+
+    const filterUsers = await CivilUser.find({
+      _id: { $ne: loggedInUserId },
+    }).select("-password");
+
+    res.status(200).json(filterUsers);
+  } catch (error: any) {
+    console.log(`Error while get Side Bar usrs : ${error.message}`);
+    next(error);
+  }
+};

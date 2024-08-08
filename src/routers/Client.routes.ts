@@ -1,6 +1,7 @@
 import express from "express";
 import {
   CreateClient,
+  getAllClient,
   getClient,
   UpdateClient,
 } from "../controllers/Client.controller";
@@ -10,6 +11,7 @@ const route = express.Router();
 
 route.post("/register", CreateClient);
 route.put("/update-client", isAuthenticated, UpdateClient);
-route.get("/:id", getClient);
+route.get("/getAll", isAuthenticated, getAllClient);
+route.get("/:id", isAuthenticated, getClient);
 
 export default route;

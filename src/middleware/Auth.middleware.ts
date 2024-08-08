@@ -18,6 +18,8 @@ export const isAuthenticated = (
   try {
     const token = req.cookies.cookie;
 
+    // console.log("token is : ", token);
+
     if (!token) {
       return next(errorHandler(400, "You should login first"));
     }

@@ -64,16 +64,17 @@ export const getClient = async (
   next: NextFunction
 ) => {
   try {
+    // console.log(`first`);
     const client = await Client.findById(req.params.id).select("-password");
-    if (!client) return res.json("");
+    if (!client) return next(errorHandler(400, "Client Not Found"));
     res.status(200).json({
       fullName: client.fullName,
       email: client.email,
       address: client.address,
     });
-  } catch (error) {
-    next(error);
-    console.log(`Error while get User Listing : ${error}`);
+  } catch (error: any) {
+    next(error.message);
+    console.log(`Error while get Client : ${error}`);
   }
 };
 
@@ -84,9 +85,11 @@ export const getAllClient = async (
 ) => {
   try {
     const loggedInUserId = req._id;
+
     const filterUsers = await Client.find({
       _id: { $ne: loggedInUserId },
     }).select("-password");
+    
     res.status(200).json(filterUsers);
   } catch (error: any) {
     console.log(`Error while get Side Bar usrs : ${error.message}`);

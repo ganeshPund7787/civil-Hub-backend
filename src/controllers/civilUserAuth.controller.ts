@@ -74,7 +74,7 @@ export const Login = async (
     res
       .cookie("cookie", cookie, {
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
+        maxAge: 5 * 24 * 60 * 60 * 1000,
         sameSite: "lax",
         secure: process.env.NODE_ENV === "production",
       })

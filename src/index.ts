@@ -13,7 +13,10 @@ import ClientRouter from "./routers/Client.routes";
 import PostRouter from "./routers/post.routes";
 import JobPostRouter from "./routers/jobPost.routes";
 
+import MsgRoute from "./routers/message.routes";
+
 import { app, server } from "./socket/socket";
+import { isAuthenticated } from "./middleware/Auth.middleware";
 
 mongoose
   .connect(process.env.MONGO_URI as string, { dbName: "civilHub" })
@@ -37,6 +40,8 @@ app.use("/api/client", ClientRouter);
 
 app.use("/api/post", PostRouter);
 app.use("/api/job-post", JobPostRouter);
+
+app.use("/api/message", isAuthenticated, MsgRoute);
 
 app.use(errorMiddleware);
 server.listen(process.env.PORT, () => {

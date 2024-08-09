@@ -13,12 +13,12 @@ import ClientRouter from "./routers/Client.routes";
 import PostRouter from "./routers/post.routes";
 import JobPostRouter from "./routers/jobPost.routes";
 
+import { app, server } from "./socket/socket";
+
 mongoose
   .connect(process.env.MONGO_URI as string, { dbName: "civilHub" })
   .then(() => console.log(`Database connected successfully`))
   .catch((err) => console.log(`Error while database connection : ${err}`));
-
-const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -39,7 +39,6 @@ app.use("/api/post", PostRouter);
 app.use("/api/job-post", JobPostRouter);
 
 app.use(errorMiddleware);
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
   console.log(`Server is working on ${process.env.PORT}`);
 });
-

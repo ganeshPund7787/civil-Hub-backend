@@ -1,14 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { Types } from "mongoose";
 import { Conversation } from "../models/conversation.model";
 import { Message } from "../models/message.model";
 import { getReceiverSocketId, io } from "../socket/socket";
-
-interface CustomRequest extends Request {
-  user: {
-    _id: Types.ObjectId;
-  };
-}
 
 export const sendMessage = async (
   req: Request,

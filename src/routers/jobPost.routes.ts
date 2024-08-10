@@ -8,6 +8,6 @@ import {
 const routes = express.Router();
 
 routes.post("/create", isAuthenticated, createJobPost);
-routes.get("/", isAuthenticated, getClientPost);
+routes.get("/getJobPost", isAuthenticated, getClientPost);
 
 export default routes;

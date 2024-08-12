@@ -23,8 +23,6 @@ mongoose
   .then(() => console.log(`Database connected successfully`))
   .catch((err) => console.log(`Error while database connection : ${err}`));
 
-app.use(express.json());
-app.use(cookieParser());
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
@@ -32,6 +30,9 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/auth", civilRouter);
 app.use("/api/user", civilUserRouter);
@@ -45,5 +46,5 @@ app.use("/api/message", isAuthenticated, MsgRoute);
 
 app.use(errorMiddleware);
 server.listen(process.env.PORT, () => {
-  console.log(`Server is working on ${process.env.PORT}`);
+  console.log(`Server is working on ${process.env.PORT || 3001}`);
 });

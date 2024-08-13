@@ -46,5 +46,5 @@ app.use("/api/message", isAuthenticated, MsgRoute);
 
 app.use(errorMiddleware);
 server.listen(process.env.PORT, () => {
-  console.log(`Server is working on ${process.env.PORT || 3001}`);
+  console.log(`Server is working on ${process.env.PORT}`);
 });

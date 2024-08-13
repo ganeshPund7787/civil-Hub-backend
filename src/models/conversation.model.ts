@@ -1,4 +1,9 @@
-import mongoose, { Document, Schema, Model } from "mongoose";
+import mongoose, {
+  Document,
+  Schema,
+  Model,
+  SchemaDefinitionProperty,
+} from "mongoose";
 
 // Define an interface representing a document in MongoDB.
 interface IConversation extends Document {
@@ -13,8 +18,10 @@ const conversationSchema = new Schema<IConversation>(
   {
     participants: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        type: mongoose.Schema.Types.ObjectId as SchemaDefinitionProperty<
+          typeof mongoose.Schema.Types.ObjectId
+        >,
+        ref: "CivilUser" || "Client",
         required: true,
       },
     ],
@@ -29,7 +36,6 @@ const conversationSchema = new Schema<IConversation>(
   { timestamps: true }
 );
 
-// Create a Model.
 export const Conversation: Model<IConversation> = mongoose.model<IConversation>(
   "Conversation",
   conversationSchema

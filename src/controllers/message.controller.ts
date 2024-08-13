@@ -30,7 +30,7 @@ export const sendMessage = async (
     });
 
     if (newMessage) {
-      conversation.messages.push(newMessage._id);
+      conversation?.messages?.push(newMessage._id);
     }
 
     await Promise.all([newMessage.save(), conversation.save()]);
@@ -57,15 +57,16 @@ export const getMessages = async (
   try {
     const { id: userToChatId } = req.params;
     const senderId = req._id;
-
+    console.log(userToChatId);
+    console.log(senderId);
     const conversation = await Conversation.findOne({
-      partcipants: { $all: [senderId, userToChatId] },
+      participants: { $all: [senderId, userToChatId] },
     }).populate("messages");
 
     if (!conversation) return res.status(200).json([]);
 
-    const messages = conversation.messages;
-    
+    const messages = conversation?.messages;
+    console.log(messages);
     res.status(200).json(messages);
   } catch (error) {
     next(error);

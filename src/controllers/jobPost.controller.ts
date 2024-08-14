@@ -36,3 +36,29 @@ export const getClientPost = async (
     next(error);
   }
 };
+
+// export const getAllPosts = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   try {
+//     const AllPost = await JobPost.find();
+//     res.status(200).json(AllPost);
+//   } catch (error: any) {
+//     next(error.message);
+//   }
+// };
+
+export const getAllPosts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const allPosts = await JobPost.find().sort({ createdAt: -1 });
+    res.status(200).json(allPosts);
+  } catch (error: any) {
+    next(error.message);
+  }
+};

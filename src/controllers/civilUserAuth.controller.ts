@@ -77,6 +77,7 @@ export const Login = async (
         maxAge: 5 * 24 * 60 * 60 * 1000,
         sameSite: "lax",
         secure: process.env.NODE_ENV === "production",
+        path: "/", // Ensure the cookie is available across your app
       })
       .status(200)
       .json(rest);

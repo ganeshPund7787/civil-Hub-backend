@@ -7,6 +7,7 @@ const app = express();
 // Create HTTP server and initialize Socket.IO with CORS options
 const server = http.createServer(app);
 const FRONTEND_PORT = process.env.FRONTEND_PORT as string;
+
 const io = new Server(server, {
   cors: {
     origin: [FRONTEND_PORT], // frontende URI https://civil-hub-frontend.vercel.app

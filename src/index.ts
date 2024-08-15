@@ -23,7 +23,6 @@ mongoose
   .then(() => console.log(`Database connected successfully`))
   .catch((err) => console.log(`Error while database connection : ${err}`));
 
-  
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
@@ -49,3 +48,5 @@ app.use(errorMiddleware);
 server.listen(process.env.PORT, () => {
   console.log(`Server is working on ${process.env.PORT}`);
 });
+
+// npm install && npx tsc

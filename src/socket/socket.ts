@@ -11,7 +11,6 @@ const io = new Server(server, {
   cors: {
     origin: [FRONTEND_PORT], // frontende URI https://civil-hub-frontend.vercel.app
     methods: ["GET", "POST"],
-    credentials: true,
   },
 });
 

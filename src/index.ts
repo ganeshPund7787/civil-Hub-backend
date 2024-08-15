@@ -23,6 +23,7 @@ mongoose
   .then(() => console.log(`Database connected successfully`))
   .catch((err) => console.log(`Error while database connection : ${err}`));
 
+  
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,

@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { Post } from "../models/post.model";
 import { errorHandler } from "../utils/error.Handler";
-import { Client } from "../models/Client.model";
 
 export const createPost = async (
   req: Request,
@@ -39,8 +38,7 @@ export const updatePost = async (
 ) => {
   try {
     const { postId } = req.params;
-    console.log(postId);
-    console.log(req.body);
+
     await Post.findByIdAndUpdate(
       postId,
       {
@@ -85,3 +83,5 @@ export const deletePost = async (
     next(error.message);
   }
 };
+
+

@@ -8,6 +8,7 @@ export type workExperienceType = {
 
 export type ProjectsType = {
   id: string;
+  _id: string;
   title: string;
   description: string;
   startDate: Date;

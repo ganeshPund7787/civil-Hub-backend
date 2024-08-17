@@ -3,6 +3,7 @@ import {
   addLanAndEducation,
   AddProject,
   addSkillsAndWork,
+  DeleteProjects,
   updateUser,
   UserAchivements,
 } from "../controllers/civilUser.controller";
@@ -16,5 +17,7 @@ route.put("/addSkillsAndWork", isAuthenticated, addSkillsAndWork);
 route.put("/addAchvements", isAuthenticated, UserAchivements);
 route.put("/AddProject", isAuthenticated, AddProject);
 route.get("/getAllCivil", isAuthenticated, getAllCivilUsers);
+route.get("/delete-Project/:id", isAuthenticated, DeleteProjects);
+
 
 export default route;

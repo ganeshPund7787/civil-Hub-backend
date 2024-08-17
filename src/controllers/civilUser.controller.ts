@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { CivilUser } from "../models/civilUser.model";
 import { errorHandler } from "../utils/error.Handler";
+import { ProjectsType } from "../shared/types";
 
 export const updateUser = async (
   req: Request,
@@ -133,5 +134,34 @@ export const AddProject = async (
     return res.status(200).json(finalUser);
   } catch (error: any) {
     next(error);
+  }
+};
+
+export const DeleteProjects = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req._id;
+    const ProjectId = req.params.id;
+
+    let user = await CivilUser.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.projects = user.projects?.filter(
+      (project) => project._id.toString() !== ProjectId
+    );
+
+    const updatedUser = await user.save();
+
+    res
+      .status(200)
+      .json({ message: "Project deleted successfully", updatedUser });
+  } catch (error: any) {
+    next(error.message);
   }
 };

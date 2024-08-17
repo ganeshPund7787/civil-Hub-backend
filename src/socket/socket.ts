@@ -8,16 +8,9 @@ const app = express();
 const server = http.createServer(app);
 const FRONTEND_PORT = process.env.FRONTEND_URL as string;
 
-// const io = new Server(server, {
-//   cors: {
-//     origin: [FRONTEND_PORT], // frontende URI https://civil-hub-frontend.vercel.app
-//     methods: ["GET", "POST"],
-//   },
-// });
-
 const io = new Server(server, {
   cors: {
-    origin: [FRONTEND_PORT], // Replace with your frontend URL
+    origin: [FRONTEND_PORT], 
     methods: ["GET", "POST"],
     credentials: true,
   },
